@@ -1,0 +1,16 @@
+{
+  "name": "node-tail",
+  "version": "0.0.1",
+  "author": "rhrn <me@rhrn.ru>",
+  "preferGlobal": "false",
+  "dependencies": {
+    "socket.io": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhrn/node-tail.git"
+  },
+  "engines": {
+    "node": "latest"
+  }
+}
