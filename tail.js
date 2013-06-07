@@ -1,32 +1,45 @@
-var filename = process.argv[2];
+var defaults = {
+  port: 4000
+};
 
-var spawn = require('child_process').spawn,
-  tail = spawn('tail', ['-f', filename]);
+exports.run = function(options) {
 
-var app = require('http').createServer(function(req, res) {
-  fs.readFile(__dirname + '/index.html',
-  function (err, data) {
-    if (err) {
-      res.writeHead(500);
-      return res.end('Error loading index.html');
+  for (var prop in defaults) {
+    if (options[prop] === undefined) {
+      options[prop] = defaults[prop];
     }
+  }
 
-    res.writeHead(200);
-    res.end(data);
+  var spawn = require('child_process').spawn,
+    tail = spawn('tail', ['-f', options.file]);
+
+  var app = require('http').createServer(function(req, res) {
+    fs.readFile(__dirname + '/index.html',
+    function (err, data) {
+      if (err) {
+        res.writeHead(500);
+        return res.end('Error loading index.html');
+      }
+
+      res.writeHead(200);
+      res.end(data);
+    });
   });
-});
 
-var io = require('socket.io').listen(app),
-  fs = require('fs');
+  var io = require('socket.io').listen(app),
+    fs = require('fs');
 
-app.listen(3000);
+  io.set('log level', 1);
 
-io.set('log level', 1);
+  io.sockets.on('connection', function (socket) {
 
-io.sockets.on('connection', function (socket) {
+    tail.stdout.on("data", function (data) {
+      socket.emit('log', data.toString("utf8"));
+    });
 
-  tail.stdout.on("data", function (data) {
-	  socket.emit('log', data.toString("utf8"));
-  }); 
+  });
 
-});
+	app.listen(options.port);
+
+  console.log('listen %s on http://localhost:%s/', options.file, options.port);
+}
