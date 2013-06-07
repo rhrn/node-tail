@@ -3,8 +3,12 @@
   "version": "0.0.1",
   "author": "rhrn <me@rhrn.ru>",
   "preferGlobal": "false",
+  "bin": {
+    "node-tail": "./bin/node-tail"
+  },
   "dependencies": {
-    "socket.io": "latest"
+    "socket.io": "latest",
+    "commander": "~1.1.1"
   },
   "repository": {
     "type": "git",
