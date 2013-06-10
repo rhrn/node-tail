@@ -2,7 +2,7 @@
 
 	<head>
 
-		<title> socket logs :3000 </title>
+		<title> socket logs :{{port}} </title>
 
 		<link href="data:image/x-icon;base64,AAABAAEAEBAQAAAAAAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA/4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAQAQAQAAAAAQAQAQAAAAAQAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAA7bcAAPtvAAD3/wAA7/8AAP//AAD3/wAA7/8AAP//AAD3/wAA7/8AAP//AAD3/wAA7/8AAP//AAD//wAA" rel="icon" type="image/x-icon">
 
@@ -22,7 +22,7 @@
 		<pre id="log" class="log"></pre>
 		<button id="clear-log">clear</button>
 		<script>
-			var socket = io.connect('http://localhost:3000');
+			var socket = io.connect('http://localhost:{{port}}');
 
 			var el = document.getElementById('log');
 			var bt = document.getElementById('clear-log');

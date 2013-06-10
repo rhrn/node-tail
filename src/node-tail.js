@@ -14,12 +14,13 @@ exports.run = function(options) {
     tail = spawn('tail', ['-f', options.file]);
 
   var app = require('http').createServer(function(req, res) {
-    fs.readFile(__dirname + '/../view/index.html',
-    function (err, data) {
+    fs.readFile(__dirname + '/../view/index.html', function (err, data) {
       if (err) {
         res.writeHead(500);
         return res.end('Error loading index.html');
       }
+
+      data = data.toString().replace(/{{port}}/g, options.port);
 
       res.writeHead(200);
       res.end(data);
@@ -39,7 +40,7 @@ exports.run = function(options) {
 
   });
 
-	app.listen(options.port);
+  app.listen(options.port);
 
   console.log('listen %s on http://localhost:%s/', options.file, options.port);
 }
